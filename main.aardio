@@ -1,0 +1,45 @@
+import win.ui;
+import win.ui.menu;
+import console;
+import fsys.dlg;
+import io;
+/*DSG{{*/
+mainForm = win.form(text="文本编辑器";right=757;bottom=467)
+mainForm.add(
+richedit={cls="richedit";left=170;top=6;right=642;bottom=461;edge=1;multiline=1;z=1};
+static1={cls="static";text="length:0";left=654;top=11;right=715;bottom=54;transparent=1;z=2}
+)
+/*}}*/
+
+mainForm.richedit.oncommand = function(id,event){
+	
+}
+
+mainForm.popmenu = win.ui.popmenu(mainForm);//创建弹出菜单
+mainForm.popmenu.add('&open',function(id){
+	//在下面输入菜单响应代码
+	
+});
+mainForm.popmenu.add('&save',function(id){
+	//在下面输入菜单响应代码
+	var txt = mainForm.richedit.text
+	var dir = fsys.dlg.saveOp("所有文件|*.*|文本文件|*.txt;*.md|", "保存文件", "默认目录", 父窗口, "默认文件名")
+	var file = io.open(dir, "w")
+	file.write(txt)
+	file.close()	
+});
+mainForm.richedit.onChange = function(){ 
+	
+	var length = mainForm.richedit.getLength()
+	mainForm.static1.text = "length:" + length
+	
+}
+mainForm.popmenu.add();//分隔线
+mainForm.popmenu.add('&exit',function(id){ mainForm.close() })
+var menu = win.ui.menu(mainForm);//创建主菜单
+menu.add('file',mainForm.popmenu)
+
+
+
+var result = mainForm.doModal();
+return //win.loopMessage();
