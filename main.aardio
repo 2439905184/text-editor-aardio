@@ -18,6 +18,10 @@ mainForm.richedit.oncommand = function(id,event){
 mainForm.popmenu = win.ui.popmenu(mainForm);//创建弹出菜单
 mainForm.popmenu.add('&open',function(id){
 	//在下面输入菜单响应代码
+ 	var dir = fsys.dlg.open("*.txt");
+ 	var file = io.open(dir,"r")
+ 	var text = file.read(-1)
+ 	mainForm.richedit.text = text
 	
 });
 mainForm.popmenu.add('&save',function(id){
